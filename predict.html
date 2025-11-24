@@ -6,125 +6,35 @@
 <title>LMS XII - Predict</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Gothic&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#ffffff;
-  --text:#000;
-  --gap-large:48px;
+:root{
+  --bg:#fff; --text:#000;
+  --team-box-width:140px; --team-box-height:48px;
   --gap-mid:28px;
-  --team-box-width:140px;
-  --team-box-height:48px;
+  --BILLY:#ff007f; --CROSBO:#00f2ff; --INGZ:#ffd400; --KABZ:#ff00ff;
+  --KIT:#00ff7f; --LOCKY:#ff5500; --STOOBZ:#007fff; --T-CITY:#ffdd00;
 }
-
-/* Player neon colors */
-:root {
-  --BILLY:#ff007f;
-  --CROSBO:#00f2ff;
-  --INGZ:#ffd400;
-  --KABZ:#ff00ff;
-  --KIT:#00ff7f;
-  --LOCKY:#ff5500;
-  --STOOBZ:#007fff;
-  --T-CITY:#ffdd00;
-}
-
-body {
-  margin:0;
-  font-family:"League Gothic", Arial, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-a { text-decoration:none; color:inherit; }
-
-.container { max-width:960px; width:100%; padding:20px; box-sizing:border-box; }
-
-.nav { width:100%; display:flex; justify-content:center; gap:28px; padding:12px 0; }
-.nav a { font-weight:700; font-size:22px; text-transform:uppercase; font-style:italic; color:#000; }
-.nav a.current { color:#ff8a2b; }
-
-h1.title {
-  font-family:"Bebas Neue", sans-serif;
-  font-weight:400;
-  font-size:clamp(100px,12vw,160px);
-  margin:40px 0 10px;
-  text-align:center;
-  padding:20px;
-  border:2px solid;
-  border-image: linear-gradient(90deg, #ff8a2b, #00f2ff, #ffd400) 1;
-  border-radius:8px;
-  box-shadow: inset 0 -4px 10px rgba(0,0,0,0.04);
-}
-
-.tagline {
-  font-size:clamp(26px,5vw,36px);
-  text-transform:uppercase;
-  font-weight:700;
-  color:#ff8a2b;
-  text-align:center;
-  margin-bottom:var(--gap-large);
-}
-
-main { width:100%; max-width:960px; padding:0 12px; text-align:center; }
-
-.top-questions {
-  background:#fff; border-radius:12px; padding:18px; margin-bottom:28px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-  text-align:left;
-}
-
-.row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
-.col { flex:1; min-width:220px; }
-.label { font-weight:900; margin-bottom:6px; display:block; font-size:15px; color:#222; letter-spacing:0.6px; }
-.select, .input, .button { width:100%; padding:12px 14px; border-radius:8px; border:1px solid #ddd; font-size:16px; box-sizing:border-box; font-family:inherit; }
-.button { background:#000;color:#fff;border:none;cursor:pointer;padding:14px 18px; font-weight:900; text-transform:uppercase; font-size:18px; }
-
-.player-nav { display:flex; gap:8px; justify-content:center; margin-bottom:28px; flex-wrap:wrap; }
-.player-nav button { font-weight:900; padding:12px 18px; border-radius:8px; border:none; cursor:pointer; text-transform:uppercase; font-style:italic; color:#fff; }
-.player-nav button.active { outline:3px solid rgba(0,0,0,0.12); }
-
-.player-area {
-  margin-bottom: var(--gap-mid);
-  padding:18px;
-  border-radius:12px;
-  background: #fff;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-  text-align:left;
-  border:2px solid;
-}
-
-.player-title { display:flex; align-items:center; gap:12px; justify-content:space-between; }
-.player-name { font-size:28px; font-weight:900; text-transform:uppercase; letter-spacing:0.6px; }
-.player-total { font-size:18px; font-weight:900; text-transform:uppercase; color:#222; }
-
-.fixtures { display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.team-box {
-  width: var(--team-box-width);
-  height: var(--team-box-height);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  text-align:center;
-  font-weight:900;
-  text-transform:uppercase;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-  cursor:pointer;
-  color:#000;
-  flex-shrink:0;
-}
-
-.team-box.greyed { background:#ccc; color:#666; cursor:not-allowed; }
-
-.picked-list { margin-top:12px; padding:12px; background: #fafafa; border-radius:8px; border:1px dashed #eee; min-height:48px; }
-.points-grid { margin-top:12px; overflow:auto; }
-.points-grid table { width:100%; border-collapse:collapse; }
-.points-grid th, .points-grid td { padding:8px 10px; text-align:center; border-bottom:1px solid #f0f0f0; font-size:14px; }
-.points-grid th { font-weight:800; text-transform:uppercase; font-size:13px; }
-.points-grid td.team { text-align:left; font-weight:700; color:#000; }
-
+body{margin:0;font-family:"League Gothic",Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;}
+.container{max-width:960px;width:100%;padding:20px;box-sizing:border-box;}
+.nav{width:100%;display:flex;justify-content:center;gap:28px;padding:12px 0;}
+.nav a{font-weight:700;font-size:22px;text-transform:uppercase;font-style:italic;color:#000}
+.nav a.current{color:#ff8a2b}
+h1.title{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:clamp(48px,8vw,80px);margin:20px 0;text-align:center;padding:12px;border:2px solid;border-image:linear-gradient(90deg,#ff8a2b,#00f2ff,#ffd400)1}
+.tagline{font-size:18px;text-transform:uppercase;font-weight:700;color:#ff8a2b;text-align:center;margin-bottom:24px}
+.player-nav{display:flex;gap:8px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+.player-nav button{font-weight:900;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;text-transform:uppercase;color:#fff}
+.player-area{margin-bottom:var(--gap-mid);padding:18px;border-radius:12px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.06);text-align:left;border:2px solid}
+.player-title{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.player-name{font-size:22px;font-weight:900;text-transform:uppercase}
+.player-total{font-size:16px;font-weight:900;text-transform:uppercase;color:#222}
+.fixtures{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.team-box{width:var(--team-box-width);height:var(--team-box-height);display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900;text-transform:uppercase;box-shadow:0 6px 18px rgba(0,0,0,0.04);cursor:pointer;color:#000;flex-shrink:0;background:#eee}
+.team-box.greyed{background:#ccc;color:#666;cursor:default;opacity:0.7}
+.points-grid{margin-top:12px;overflow:auto}
+.points-grid table{width:100%;border-collapse:collapse}
+.points-grid th,.points-grid td{padding:8px 10px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:14px}
+.points-grid th{font-weight:800;text-transform:uppercase;font-size:13px}
+.points-grid td.team{text-align:left;font-weight:700;color:#000}
+.picked-list{margin-top:12px;padding:12px;background:#fafafa;border-radius:8px;border:1px dashed #eee;min-height:48px}
 </style>
 </head>
 <body>
@@ -142,93 +52,67 @@ main { width:100%; max-width:960px; padding:0 12px; text-align:center; }
   </header>
 
   <main>
-    <section class="top-questions">
-      <div class="row">
-        <div class="col">
-          <label class="label">YOUR NAME</label>
-          <select id="top-name" class="select">
-            <option value="">-- CHOOSE YOUR NAME --</option>
-            <option>BILLY</option><option>CROSBO</option><option>INGZ</option><option>KABZ</option>
-            <option>KIT</option><option>LOCKY</option><option>STOOBZ</option><option>T-CITY</option>
-          </select>
-        </div>
-        <div class="col">
-          <label class="label">TEAM FOR THE WEEK</label>
-          <select id="top-team" class="select">
-            <option value="">-- CHOOSE A TEAM --</option>
-            <option>Arsenal</option><option>Aston Villa</option><option>Bournemouth</option>
-            <option>Brentford</option><option>Brighton</option><option>Burnley</option>
-            <option>Chelsea</option><option>Palace</option><option>Everton</option>
-            <option>Fulham</option><option>Leeds</option><option>Liverpool</option>
-            <option>Man City</option><option>Man Utd</option><option>Newcastle</option>
-            <option>Forest</option><option>Sunderland</option><option>Spurs</option>
-            <option>West Ham</option><option>Wolves</option>
-          </select>
-        </div>
-        <div class="col">
-          <label class="label">PLAYER PICK</label>
-          <input id="top-player" class="input" placeholder="ENTER PLAYER NAME">
-        </div>
-      </div>
-      <div class="row">
-        <button class="button" id="submitPick">SUBMIT PICK</button>
-      </div>
-    </section>
-
     <div class="player-nav" id="playerNav"></div>
     <section id="players"></section>
   </main>
 </div>
 
 <script>
+/* === Data for this week (do not alter names) ===
+   Team points and player points already calculated from the league table and results.
+   Team points = based on Q-gap and venue. Player points = 30 per goal, 15 per assist.
+*/
 const PLAYERS = [
-  {id:'BILLY', color:'#ff007f', team:'Man Utd', player:'Rashford', qGap:+1, teamPoints:70, playerPoints:30},
-  {id:'CROSBO', color:'#00f2ff', team:'Chelsea', player:'Mount', qGap:-3, teamPoints:40, playerPoints:30},
-  {id:'INGZ', color:'#ffd400', team:'Liverpool', player:'Salah', qGap:-1, teamPoints:50, playerPoints:75},
-  {id:'KIT', color:'#00ff7f', team:'Arsenal', player:'Saka', qGap:-3, teamPoints:40, playerPoints:45},
-  {id:'LOCKY', color:'#ff5500', team:'Man City', player:'Haaland', qGap:0, teamPoints:36, playerPoints:0},
-  {id:'KABZ', color:'#ff00ff', team:'Spurs', player:'Kane', qGap:-2, teamPoints:40, playerPoints:75},
-  {id:'STOOBZ', color:'#007fff', team:'Brighton', player:'Gross', qGap:0, teamPoints:60, playerPoints:45},
-  {id:'T-CITY', color:'#ffdd00', team:'Newcastle', player:'Trippier', qGap:-1, teamPoints:60, playerPoints:45}
+  {id:'BILLY', color:getComputedStyle(document.documentElement).getPropertyValue('--BILLY')||'#ff007f', team:'Man Utd', player:'Rashford', teamPoints:70, playerPoints:45},
+  {id:'CROSBO', color:getComputedStyle(document.documentElement).getPropertyValue('--CROSBO')||'#00f2ff', team:'Chelsea', player:'Mount', teamPoints:40, playerPoints:45},
+  {id:'INGZ', color:getComputedStyle(document.documentElement).getPropertyValue('--INGZ')||'#ffd400', team:'Liverpool', player:'Salah', teamPoints:50, playerPoints:75},
+  {id:'KIT', color:getComputedStyle(document.documentElement).getPropertyValue('--KIT')||'#00ff7f', team:'Arsenal', player:'Saka', teamPoints:40, playerPoints:45},
+  {id:'LOCKY', color:getComputedStyle(document.documentElement).getPropertyValue('--LOCKY')||'#ff5500', team:'Man City', player:'Haaland', teamPoints:0, playerPoints:0},
+  {id:'KABZ', color:getComputedStyle(document.documentElement).getPropertyValue('--KABZ')||'#ff00ff', team:'Spurs', player:'Kane', teamPoints:40, playerPoints:75},
+  {id:'STOOBZ', color:getComputedStyle(document.documentElement).getPropertyValue('--STOOBZ')||'#007fff', team:'Brighton', player:'Gross', teamPoints:60, playerPoints:45},
+  {id:'T-CITY', color:getComputedStyle(document.documentElement).getPropertyValue('--T-CITY')||'#ffdd00', team:'Newcastle', player:'Trippier', teamPoints:60, playerPoints:45}
 ];
 
-const TEAMS = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Burnley','Chelsea','Palace','Everton','Fulham','Leeds','Liverpool','Man City','Man Utd','Newcastle','Forest','Sunderland','Spurs','West Ham','Wolves'];
-
+/* Fixtures shown for each player (same order); the player's picked team box is greyed out */
 const FIXTURES = [
-  {home:'West Ham', away:'Sunderland'},
-  {home:'Burnley', away:'Spurs'},
-  {home:'Fulham', away:'Brighton'},
-  {home:'Man City', away:'Wolves'},
-  {home:'Bournemouth', away:'Liverpool'},
-  {home:'Brentford', away:'Forest'},
-  {home:'Palace', away:'Chelsea'},
-  {home:'Newcastle', away:'Aston Villa'},
-  {home:'Arsenal', away:'Man Utd'},
-  {home:'Everton', away:'Leeds'}
+  {home:'Man Utd', away:'Man City'},
+  {home:'Chelsea', away:'Brentford'},
+  {home:'Leeds', away:'Fulham'},
+  {home:'Liverpool', away:'Burnley'},
+  {home:'Sunderland', away:'Palace'},
+  {home:'Tottenham Hotspur', away:'West Ham'},
+  {home:'Nottingham Forest', away:'Arsenal'},
+  {home:'Wolves', away:'Newcastle'},
+  {home:'Aston Villa', away:'Everton'},
+  {home:'Brighton', away:'Bournemouth'}
 ];
-
-const TOTAL_WEEKS = 17;
 
 const playerNav = document.getElementById('playerNav');
 const playersContainer = document.getElementById('players');
 
 PLAYERS.forEach(p=>{
-  const btn = document.createElement('button');
+  // nav button
+  const btn=document.createElement('button');
   btn.textContent=p.id;
   btn.style.background=p.color;
   btn.onclick=()=>document.getElementById('player-'+p.id).scrollIntoView({behavior:'smooth'});
   playerNav.appendChild(btn);
 
-  const area = document.createElement('div');
+  // player area
+  const area=document.createElement('div');
   area.id='player-'+p.id;
   area.className='player-area';
   area.style.borderColor=p.color;
-  area.innerHTML=`<div class="player-title">
-      <div class="player-name" style="color:${p.color}">${p.id}</div>
+  area.innerHTML=`
+    <div class="player-title">
+      <div>
+        <div class="player-name" style="color:${p.color}">${p.id}</div>
+        <div style="font-size:13px;color:#666">Pick: ${p.team} — ${p.player}</div>
+      </div>
       <div class="player-total">TOTAL: <span id="${p.id}-total">${p.teamPoints + p.playerPoints}</span></div>
     </div>
     <div class="fixtures"></div>
-    <div class="picked-list"><strong>PICKED PLAYERS</strong><div id="${p.id}-pickedList"><em>${p.player} (${p.team})</em></div></div>
+    <div class="picked-list"><strong>PICKED PLAYER</strong><div id="${p.id}-pickedList"><em>${p.player} (${p.team})</em></div></div>
     <div class="points-grid">
       <table>
         <thead><tr>
@@ -236,51 +120,42 @@ PLAYERS.forEach(p=>{
         </tr></thead>
         <tbody id="${p.id}-tbody"></tbody>
       </table>
-    </div>`;
+    </div>
+  `;
   playersContainer.appendChild(area);
 
-  const fixturesWrap = area.querySelector('.fixtures');
+  // fixtures (grey picked team)
+  const fixturesWrap=area.querySelector('.fixtures');
   FIXTURES.forEach(f=>{
     const homeBox=document.createElement('div');
     homeBox.className='team-box';
     homeBox.textContent=f.home;
     if(f.home===p.team) homeBox.classList.add('greyed');
+    const vs=document.createElement('div'); vs.style.alignSelf='center'; vs.style.fontWeight='700'; vs.style.color='#666'; vs.style.padding='0 6px'; vs.textContent='v';
     const awayBox=document.createElement('div');
     awayBox.className='team-box';
     awayBox.textContent=f.away;
     if(f.away===p.team) awayBox.classList.add('greyed');
     fixturesWrap.appendChild(homeBox);
-    const vs=document.createElement('div');
-    vs.style.alignSelf='center';
-    vs.style.fontWeight='700';
-    vs.style.color='#666';
-    vs.style.padding='0 6px';
-    vs.textContent='v';
     fixturesWrap.appendChild(vs);
     fixturesWrap.appendChild(awayBox);
-    const spacer=document.createElement('div');
-    spacer.style.flexBasis='100%'; spacer.style.height='8px';
+    const spacer=document.createElement('div'); spacer.style.flexBasis='100%'; spacer.style.height='8px';
     fixturesWrap.appendChild(spacer);
   });
 
+  // populate week 1 row (this week)
   const tbody = area.querySelector('tbody');
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td>1</td>
+  const tr = document.createElement('tr');
+  const weekTotal = p.teamPoints + p.playerPoints;
+  tr.innerHTML = `<td>1</td>
     <td class="team">${p.team}</td>
     <td>${p.teamPoints}</td>
     <td>${p.player}</td>
     <td>${p.playerPoints}</td>
-    <td>${p.teamPoints + p.playerPoints}</td>`;
+    <td>${weekTotal}</td>`;
   tbody.appendChild(tr);
 });
 
-document.getElementById('submitPick').onclick=()=>{
-  const name=document.getElementById('top-name').value;
-  const team=document.getElementById('top-team').value;
-  const player=document.getElementById('top-player').value.trim();
-  if(!name||!team||!player){ alert('SELECT NAME, TEAM, AND PLAYER'); return; }
-  alert(`PICK SUBMITTED:\n${name} — ${team} — ${player}`);
-};
 </script>
 </body>
 </html>
