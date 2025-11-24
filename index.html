@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LMS XII - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Gothic&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff;
+  --text:#000000;
+  --muted:#111;
+  --accent-pink:#ff007f;
+  --gap-large:48px;
+  --gap-mid:28px;
+}
+
+body {
+  margin:0;
+  font-family:"League Gothic", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+a { text-decoration:none; color:inherit; }
+.container { max-width:960px; width:100%; padding:20px; box-sizing:border-box; }
+
+.nav { width:100%; display:flex; justify-content:center; gap:28px; padding:12px 0; }
+.nav a { font-weight:700; font-size:22px; text-transform:uppercase; font-style:italic; color:#000; }
+.nav a.current { color:var(--accent-pink); }
+
+h1.title { 
+  font-family:"Bebas Neue", sans-serif;
+  font-weight:400;
+  font-size:clamp(100px,12vw,160px);
+  margin:40px 0 10px;
+  text-align:center;
+  padding:20px;
+  border:2px solid;
+  border-image: linear-gradient(90deg, #ff007f, #00f2ff, #ffd400) 1;
+  border-radius:8px;
+  box-shadow: inset 0 -4px 10px rgba(0,0,0,0.04);
+}
+
+.tagline {
+  font-size:clamp(26px,5vw,36px);
+  text-transform:uppercase;
+  font-weight:700;
+  color:var(--accent-pink);
+  text-align:center;
+  margin-bottom:var(--gap-large);
+}
+
+main { width:100%; max-width:960px; padding:0 12px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav">
+    <a href="index.html" class="current">Home</a>
+    <a href="predict.html">Predict</a>
+    <a href="table.html">Table</a>
+    <a href="rules.html">Rules</a>
+  </nav>
+
+  <header>
+    <h1 class="title">LMS XII</h1>
+    <div class="tagline">LET'S BE HAVING YOU</div>
+  </header>
+
+  <main>
+    <!-- Add homepage content here -->
+  </main>
+</div>
+</body>
+</html>

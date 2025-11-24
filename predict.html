@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LMS XII - Predict</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Gothic&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff;
+  --text:#000;
+  --gap-large:48px;
+  --gap-mid:28px;
+  --team-box-width:140px;
+  --team-box-height:48px;
+}
+
+/* Player neon colors */
+:root {
+  --BILLY:#ff007f;
+  --CROSBO:#00f2ff;
+  --INGZ:#ffd400;
+  --KABZ:#ff00ff;
+  --KIT:#00ff7f;
+  --LOCKY:#ff5500;
+  --STOOBZ:#007fff;
+  --T-CITY:#ffdd00;
+}
+
+body {
+  margin:0;
+  font-family:"League Gothic", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+a { text-decoration:none; color:inherit; }
+
+.container { max-width:960px; width:100%; padding:20px; box-sizing:border-box; }
+
+.nav { width:100%; display:flex; justify-content:center; gap:28px; padding:12px 0; }
+.nav a { font-weight:700; font-size:22px; text-transform:uppercase; font-style:italic; color:#000; }
+.nav a.current { color:#ff8a2b; }
+
+h1.title {
+  font-family:"Bebas Neue", sans-serif;
+  font-weight:400;
+  font-size:clamp(100px,12vw,160px);
+  margin:40px 0 10px;
+  text-align:center;
+  padding:20px;
+  border:2px solid;
+  border-image: linear-gradient(90deg, #ff8a2b, #00f2ff, #ffd400) 1;
+  border-radius:8px;
+  box-shadow: inset 0 -4px 10px rgba(0,0,0,0.04);
+}
+
+.tagline {
+  font-size:clamp(26px,5vw,36px);
+  text-transform:uppercase;
+  font-weight:700;
+  color:#ff8a2b;
+  text-align:center;
+  margin-bottom:var(--gap-large);
+}
+
+main { width:100%; max-width:960px; padding:0 12px; text-align:center; }
+
+.top-questions {
+  background:#fff; border-radius:12px; padding:18px; margin-bottom:28px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  text-align:left;
+}
+
+.row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+.col { flex:1; min-width:220px; }
+.label { font-weight:900; margin-bottom:6px; display:block; font-size:15px; color:#222; letter-spacing:0.6px; }
+.select, .input, .button { width:100%; padding:12px 14px; border-radius:8px; border:1px solid #ddd; font-size:16px; box-sizing:border-box; font-family:inherit; }
+.button { background:#000;color:#fff;border:none;cursor:pointer;padding:14px 18px; font-weight:900; text-transform:uppercase; font-size:18px; }
+
+.player-nav { display:flex; gap:8px; justify-content:center; margin-bottom:28px; flex-wrap:wrap; }
+.player-nav button { font-weight:900; padding:12px 18px; border-radius:8px; border:none; cursor:pointer; text-transform:uppercase; font-style:italic; color:#fff; }
+.player-nav button.active { outline:3px solid rgba(0,0,0,0.12); }
+
+.player-area {
+  margin-bottom: var(--gap-mid);
+  padding:18px;
+  border-radius:12px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  text-align:left;
+  border:2px solid;
+}
+
+.player-title { display:flex; align-items:center; gap:12px; justify-content:space-between; }
+.player-name { font-size:28px; font-weight:900; text-transform:uppercase; letter-spacing:0.6px; }
+.player-total { font-size:18px; font-weight:900; text-transform:uppercase; color:#222; }
+
+.fixtures { display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; align-items:center; }
+.team-box {
+  width: var(--team-box-width);
+  height: var(--team-box-height);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  text-align:center;
+  font-weight:900;
+  text-transform:uppercase;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  cursor:pointer;
+  color:#000;
+  flex-shrink:0;
+}
+
+.picked-list { margin-top:12px; padding:12px; background: #fafafa; border-radius:8px; border:1px dashed #eee; min-height:48px; }
+.points-grid { margin-top:12px; overflow:auto; }
+.points-grid table { width:100%; border-collapse:collapse; }
+.points-grid th, .points-grid td { padding:8px 10px; text-align:center; border-bottom:1px solid #f0f0f0; font-size:14px; }
+.points-grid th { font-weight:800; text-transform:uppercase; font-size:13px; }
+.points-grid td.team { text-align:left; font-weight:700; color:#000; }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="predict.html" class="current">Predict</a>
+    <a href="table.html">Table</a>
+    <a href="rules.html">Rules</a>
+  </nav>
+
+  <header>
+    <h1 class="title">LMS XII</h1>
+    <div class="tagline">CHOOSE <s>LIFE</s> HARV</div>
+  </header>
+
+  <main>
+    <section class="top-questions">
+      <div class="row">
+        <div class="col">
+          <label class="label">YOUR NAME</label>
+          <select id="top-name" class="select">
+            <option value="">-- CHOOSE YOUR NAME --</option>
+            <option>BILLY</option><option>CROSBO</option><option>INGZ</option><option>KABZ</option>
+            <option>KIT</option><option>LOCKY</option><option>STOOBZ</option><option>T-CITY</option>
+          </select>
+        </div>
+        <div class="col">
+          <label class="label">TEAM FOR THE WEEK</label>
+          <select id="top-team" class="select">
+            <option value="">-- CHOOSE A TEAM --</option>
+            <option>Arsenal</option><option>Aston Villa</option><option>Bournemouth</option>
+            <option>Brentford</option><option>Brighton</option><option>Burnley</option>
+            <option>Chelsea</option><option>Palace</option><option>Everton</option>
+            <option>Fulham</option><option>Leeds</option><option>Liverpool</option>
+            <option>Man City</option><option>Man Utd</option><option>Newcastle</option>
+            <option>Forest</option><option>Sunderland</option><option>Spurs</option>
+            <option>West Ham</option><option>Wolves</option>
+          </select>
+        </div>
+        <div class="col">
+          <label class="label">PLAYER PICK</label>
+          <input id="top-player" class="input" placeholder="ENTER PLAYER NAME">
+        </div>
+      </div>
+      <div class="row">
+        <button class="button" id="submitPick">SUBMIT PICK</button>
+      </div>
+    </section>
+
+    <div class="player-nav" id="playerNav"></div>
+    <section id="players"></section>
+  </main>
+</div>
+
+<script>
+const PLAYERS = [
+  {id:'BILLY', color:'#ff007f'},
+  {id:'CROSBO', color:'#00f2ff'},
+  {id:'INGZ', color:'#ffd400'},
+  {id:'KABZ', color:'#ff00ff'},
+  {id:'KIT', color:'#00ff7f'},
+  {id:'LOCKY', color:'#ff5500'},
+  {id:'STOOBZ', color:'#007fff'},
+  {id:'T-CITY', color:'#ffdd00'}
+];
+
+const TEAMS = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Burnley','Chelsea','Palace','Everton','Fulham','Leeds','Liverpool','Man City','Man Utd','Newcastle','Forest','Sunderland','Spurs','West Ham','Wolves'];
+
+const FIXTURES = [
+  {home:'Man Utd', away:'Man City', time:'12:30'},
+  {home:'Chelsea', away:'Brentford', time:'15:00'},
+  {home:'Leeds', away:'Fulham', time:'15:00'},
+  {home:'Liverpool', away:'Burnley', time:'15:00'},
+  {home:'Sunderland', away:'Palace', time:'15:00'},
+  {home:'Tottenham Hotspur', away:'West Ham', time:'15:00'},
+  {home:'Nottingham Forest', away:'Arsenal', time:'17:30'},
+  {home:'Wolverhampton Wanderers', away:'Newcastle', time:'14:00'},
+  {home:'Aston Villa', away:'Everton', time:'16:30'},
+  {home:'Brighton', away:'Bournemouth', time:'20:00'}
+];
+
+const TOTAL_WEEKS = 17;
+
+const playerNav = document.getElementById('playerNav');
+const playersContainer = document.getElementById('players');
+
+PLAYERS.forEach(p=>{
+  // create nav button
+  const btn = document.createElement('button');
+  btn.textContent=p.id;
+  btn.style.background=p.color;
+  btn.onclick=()=>document.getElementById('player-'+p.id).scrollIntoView({behavior:'smooth'});
+  playerNav.appendChild(btn);
+
+  // create player area
+  const area = document.createElement('div');
+  area.id='player-'+p.id;
+  area.className='player-area';
+  area.style.borderColor=p.color;
+  area.innerHTML=`<div class="player-title">
+      <div class="player-name" style="color:${p.color}">${p.id}</div>
+      <div class="player-total">TOTAL: <span id="${p.id}-total">0</span></div>
+    </div>
+    <div class="fixtures"></div>
+    <div class="picked-list"><strong>PICKED PLAYERS</strong><div id="${p.id}-pickedList"><em>No players picked yet</em></div></div>
+    <div class="points-grid">
+      <table>
+        <thead><tr>
+          <th>Week</th><th>Team</th><th>Team Points</th><th>Player</th><th>Player Points</th><th>Week Total</th>
+        </tr></thead>
+        <tbody id="${p.id}-tbody"></tbody>
+      </table>
+    </div>`;
+  playersContainer.appendChild(area);
+
+  // populate fixtures
+  const fixturesWrap = area.querySelector('.fixtures');
+  FIXTURES.forEach(f=>{
+    const homeBox=document.createElement('div');
+    homeBox.className='team-box';
+    homeBox.style.background=p.color;
+    homeBox.textContent=f.home;
+    const awayBox=document.createElement('div');
+    awayBox.className='team-box';
+    awayBox.style.background=p.color;
+    awayBox.textContent=f.away;
+    fixturesWrap.appendChild(homeBox);
+    const vs=document.createElement('div');
+    vs.style.alignSelf='center';
+    vs.style.fontWeight='700';
+    vs.style.color='#666';
+    vs.style.padding='0 6px';
+    vs.textContent='v';
+    fixturesWrap.appendChild(vs);
+    fixturesWrap.appendChild(awayBox);
+    const spacer=document.createElement('div');
+    spacer.style.flexBasis='100%'; spacer.style.height='8px';
+    fixturesWrap.appendChild(spacer);
+  });
+
+  // populate 17 weeks grid
+  const tbody = area.querySelector('tbody');
+  for(let w=1;w<=TOTAL_WEEKS;w++){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${w}</td><td class="team" style="color:#999">—</td>
+      <td style="color:#999">—</td>
+      <td style="color:#999">—</td>
+      <td style="color:#999">—</td>
+      <td style="color:#999">—</td>`;
+    tbody.appendChild(tr);
+  }
+});
+
+document.getElementById('submitPick').onclick=()=>{
+  const name=document.getElementById('top-name').value;
+  const team=document.getElementById('top-team').value;
+  const player=document.getElementById('top-player').value.trim();
+  if(!name||!team||!player){ alert('SELECT NAME, TEAM, AND PLAYER'); return; }
+  alert(`PICK SUBMITTED:\n${name} — ${team} — ${player}`);
+};
+</script>
+</body>
+</html>
