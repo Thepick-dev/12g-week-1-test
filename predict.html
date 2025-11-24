@@ -116,6 +116,8 @@ main { width:100%; max-width:960px; padding:0 12px; text-align:center; }
   flex-shrink:0;
 }
 
+.team-box.greyed { background:#ccc; color:#666; cursor:not-allowed; }
+
 .picked-list { margin-top:12px; padding:12px; background: #fafafa; border-radius:8px; border:1px dashed #eee; min-height:48px; }
 .points-grid { margin-top:12px; overflow:auto; }
 .points-grid table { width:100%; border-collapse:collapse; }
@@ -180,29 +182,29 @@ main { width:100%; max-width:960px; padding:0 12px; text-align:center; }
 
 <script>
 const PLAYERS = [
-  {id:'BILLY', color:'#ff007f'},
-  {id:'CROSBO', color:'#00f2ff'},
-  {id:'INGZ', color:'#ffd400'},
-  {id:'KABZ', color:'#ff00ff'},
-  {id:'KIT', color:'#00ff7f'},
-  {id:'LOCKY', color:'#ff5500'},
-  {id:'STOOBZ', color:'#007fff'},
-  {id:'T-CITY', color:'#ffdd00'}
+  {id:'BILLY', color:'#ff007f', team:'Man Utd', player:'Rashford', qGap:+1, teamPoints:70, playerPoints:30},
+  {id:'CROSBO', color:'#00f2ff', team:'Chelsea', player:'Mount', qGap:-3, teamPoints:40, playerPoints:30},
+  {id:'INGZ', color:'#ffd400', team:'Liverpool', player:'Salah', qGap:-1, teamPoints:50, playerPoints:75},
+  {id:'KIT', color:'#00ff7f', team:'Arsenal', player:'Saka', qGap:-3, teamPoints:40, playerPoints:45},
+  {id:'LOCKY', color:'#ff5500', team:'Man City', player:'Haaland', qGap:0, teamPoints:36, playerPoints:0},
+  {id:'KABZ', color:'#ff00ff', team:'Spurs', player:'Kane', qGap:-2, teamPoints:40, playerPoints:75},
+  {id:'STOOBZ', color:'#007fff', team:'Brighton', player:'Gross', qGap:0, teamPoints:60, playerPoints:45},
+  {id:'T-CITY', color:'#ffdd00', team:'Newcastle', player:'Trippier', qGap:-1, teamPoints:60, playerPoints:45}
 ];
 
 const TEAMS = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Burnley','Chelsea','Palace','Everton','Fulham','Leeds','Liverpool','Man City','Man Utd','Newcastle','Forest','Sunderland','Spurs','West Ham','Wolves'];
 
 const FIXTURES = [
-  {home:'Man Utd', away:'Man City', time:'12:30'},
-  {home:'Chelsea', away:'Brentford', time:'15:00'},
-  {home:'Leeds', away:'Fulham', time:'15:00'},
-  {home:'Liverpool', away:'Burnley', time:'15:00'},
-  {home:'Sunderland', away:'Palace', time:'15:00'},
-  {home:'Tottenham Hotspur', away:'West Ham', time:'15:00'},
-  {home:'Nottingham Forest', away:'Arsenal', time:'17:30'},
-  {home:'Wolverhampton Wanderers', away:'Newcastle', time:'14:00'},
-  {home:'Aston Villa', away:'Everton', time:'16:30'},
-  {home:'Brighton', away:'Bournemouth', time:'20:00'}
+  {home:'West Ham', away:'Sunderland'},
+  {home:'Burnley', away:'Spurs'},
+  {home:'Fulham', away:'Brighton'},
+  {home:'Man City', away:'Wolves'},
+  {home:'Bournemouth', away:'Liverpool'},
+  {home:'Brentford', away:'Forest'},
+  {home:'Palace', away:'Chelsea'},
+  {home:'Newcastle', away:'Aston Villa'},
+  {home:'Arsenal', away:'Man Utd'},
+  {home:'Everton', away:'Leeds'}
 ];
 
 const TOTAL_WEEKS = 17;
@@ -211,24 +213,22 @@ const playerNav = document.getElementById('playerNav');
 const playersContainer = document.getElementById('players');
 
 PLAYERS.forEach(p=>{
-  // create nav button
   const btn = document.createElement('button');
   btn.textContent=p.id;
   btn.style.background=p.color;
   btn.onclick=()=>document.getElementById('player-'+p.id).scrollIntoView({behavior:'smooth'});
   playerNav.appendChild(btn);
 
-  // create player area
   const area = document.createElement('div');
   area.id='player-'+p.id;
   area.className='player-area';
   area.style.borderColor=p.color;
   area.innerHTML=`<div class="player-title">
       <div class="player-name" style="color:${p.color}">${p.id}</div>
-      <div class="player-total">TOTAL: <span id="${p.id}-total">0</span></div>
+      <div class="player-total">TOTAL: <span id="${p.id}-total">${p.teamPoints + p.playerPoints}</span></div>
     </div>
     <div class="fixtures"></div>
-    <div class="picked-list"><strong>PICKED PLAYERS</strong><div id="${p.id}-pickedList"><em>No players picked yet</em></div></div>
+    <div class="picked-list"><strong>PICKED PLAYERS</strong><div id="${p.id}-pickedList"><em>${p.player} (${p.team})</em></div></div>
     <div class="points-grid">
       <table>
         <thead><tr>
@@ -239,17 +239,16 @@ PLAYERS.forEach(p=>{
     </div>`;
   playersContainer.appendChild(area);
 
-  // populate fixtures
   const fixturesWrap = area.querySelector('.fixtures');
   FIXTURES.forEach(f=>{
     const homeBox=document.createElement('div');
     homeBox.className='team-box';
-    homeBox.style.background=p.color;
     homeBox.textContent=f.home;
+    if(f.home===p.team) homeBox.classList.add('greyed');
     const awayBox=document.createElement('div');
     awayBox.className='team-box';
-    awayBox.style.background=p.color;
     awayBox.textContent=f.away;
+    if(f.away===p.team) awayBox.classList.add('greyed');
     fixturesWrap.appendChild(homeBox);
     const vs=document.createElement('div');
     vs.style.alignSelf='center';
@@ -264,17 +263,15 @@ PLAYERS.forEach(p=>{
     fixturesWrap.appendChild(spacer);
   });
 
-  // populate 17 weeks grid
   const tbody = area.querySelector('tbody');
-  for(let w=1;w<=TOTAL_WEEKS;w++){
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${w}</td><td class="team" style="color:#999">—</td>
-      <td style="color:#999">—</td>
-      <td style="color:#999">—</td>
-      <td style="color:#999">—</td>
-      <td style="color:#999">—</td>`;
-    tbody.appendChild(tr);
-  }
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>1</td>
+    <td class="team">${p.team}</td>
+    <td>${p.teamPoints}</td>
+    <td>${p.player}</td>
+    <td>${p.playerPoints}</td>
+    <td>${p.teamPoints + p.playerPoints}</td>`;
+  tbody.appendChild(tr);
 });
 
 document.getElementById('submitPick').onclick=()=>{
